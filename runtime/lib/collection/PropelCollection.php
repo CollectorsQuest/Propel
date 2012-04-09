@@ -303,23 +303,27 @@ class PropelCollection extends ArrayObject implements Serializable
 	/**
 	 * Whether or not this collection contains a specified element
 	 *
-	 * @param     mixed  $element
+	 * @param     mixed    $element
+	 * @param     boolean  $strict
+	
 	 * @return    boolean
 	 */
-	public function contains($element)
+	public function contains($element, $strict = true)
 	{
-		return in_array($element, $this->getArrayCopy(), true);
+		return in_array($element, $this->getArrayCopy(), $strict);
 	}
 
 	/**
 	 * Search an element in the collection
 	 *
-	 * @param     mixed  $element
+	 * @param     mixed    $element
+   * @param     boolean  $strict
+
 	 * @return    mixed  Returns the key for the element if it is found in the collection, FALSE otherwise
 	 */
-	public function search($element)
+	public function search($element, $strict = true)
 	{
-		return array_search($element, $this->getArrayCopy(), true);
+		return array_search($element, $this->getArrayCopy(), $strict);
 	}
 
 	/**
@@ -327,15 +331,16 @@ class PropelCollection extends ArrayObject implements Serializable
 	 * are not presents in the given collection.
 	 *
 	 * @param PropelCollection $collection	A Propel collection.
+	 * @param boolean $strict Whether to compare objects with the strict flag on/off
 	 * @return PropelCollection				An array of Propel objects from the collection that are not presents in the given collection.
 	 */
-	public function diff(PropelCollection $collection)
+	public function diff(PropelCollection $collection, $strict = true)
 	{
 		$diff = clone $this;
 		$diff->clear();
 
 		foreach ($this as $object) {
-			if (!$collection->contains($object)) {
+			if (!$collection->contains($object, $strict)) {
 				$diff[] = $object;
 			}
 		}

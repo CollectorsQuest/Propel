@@ -3594,7 +3594,7 @@ abstract class ".$this->getClassname()." extends ".$parentClass." ";
 	 */
 	public function set{$relatedName}(PropelCollection \${$inputCollection}, PropelPDO \$con = null)
 	{
-		\$this->{$inputCollection}ScheduledForDeletion = \$this->get{$relatedName}(new Criteria(), \$con)->diff(\${$inputCollection});
+		\$this->{$inputCollection}ScheduledForDeletion = \$this->get{$relatedName}(new Criteria(), \$con)->diff(\${$inputCollection}, false);
 
 		foreach (\${$inputCollection} as \${$inputCollectionEntry}) {
 			// Fix issue with collection modified by reference
@@ -3959,7 +3959,7 @@ abstract class ".$this->getClassname()." extends ".$parentClass." ";
 			->filterBy{$selfRelationName}(\$this)
 			->find(\$con);
 
-		\$this->{$inputCollection}ScheduledForDeletion = \$this->get{$relCol}()->diff({$crossRefObjectClassName}s);
+		\$this->{$inputCollection}ScheduledForDeletion = \$this->get{$relCol}()->diff({$crossRefObjectClassName}s, false);
 		\$this->{$relColVarName} = {$crossRefObjectClassName}s;
 
 		foreach (\${$inputCollection} as \${$inputCollectionEntry}) {
